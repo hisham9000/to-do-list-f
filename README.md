@@ -17,9 +17,9 @@ A simple and user-friendly To-Do List application that helps users organize task
 
 ## Technologies Used
 
-- HTML
+- PYTHON
 - CSS
-- JavaScript
+- HTML
 
 ---
 
