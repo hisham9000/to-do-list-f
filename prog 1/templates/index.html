@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ToDo</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="container">
+
+    <!-- 🔥 اسم ثابت -->
+    <h1 id="title">⚡ Daily Tasks</h1>
+
+    <form class="input-box" action="/add" method="POST">
+        <input type="text" name="task" placeholder="Write your task..." />
+        <button>Add</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li class="task {% if task.done %}done{% endif %}">
+
+            <span>{{ task.text }}</span>
+
+            <div>
+                <a href="/done/{{ loop.index0 }}">
+                    <button class="done">✔</button>
+                </a>
+
+                <a href="/delete/{{ loop.index0 }}">
+                    <button class="del">✖</button>
+                </a>
+            </div>
+
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+<!-- 🧠 حركة الماوس فقط (بدون تغيير اسم) -->
+<script>
+const card = document.querySelector(".container");
+
+let x = 0, y = 0, cx = 0, cy = 0;
+
+document.addEventListener("mousemove", (e) => {
+    x = (e.clientX - window.innerWidth / 2);
+    y = (e.clientY - window.innerHeight / 2);
+});
+
+function animate() {
+    cx += (x - cx) * 0.07;
+    cy += (y - cy) * 0.07;
+
+    card.style.transform = `
+        perspective(1200px)
+        rotateY(${cx * 0.02}deg)
+        rotateX(${cy * -0.02}deg)
+        translateY(-10px)
+    `;
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
